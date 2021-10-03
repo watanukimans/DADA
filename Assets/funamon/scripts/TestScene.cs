@@ -10,6 +10,7 @@ public class TestScene : MonoBehaviourPunCallbacks
 {
 
     public static GameObject My; //自身のアバターを格納
+    public static GameObject Rect;
   
     public Text PlayerNum;
 
@@ -36,8 +37,9 @@ public class TestScene : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
-        var position = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+        var position = new Vector3(20,15,30);
         My = PhotonNetwork.Instantiate("Avatar", position, Quaternion.identity);
+        Rect = PhotonNetwork.Instantiate("cursole", position, Quaternion.identity);
         var local = PhotonNetwork.LocalPlayer;
 
         Debug.Log(local.ActorNumber);

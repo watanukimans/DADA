@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class OnMouseS : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject thisCard;
+    float distance;
 
     public void SendEmotion()
     {
@@ -20,14 +21,24 @@ public class OnMouseS : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // Start is called before the first frame update
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Vector3 Apos = thisCard.transform.position;
-        Vector3 Jpos = GameObject.FindGameObjectWithTag("Card10").transform.position;
-        Vector3 Ypos = GameManager.Instance.Yajirusi.transform.position;
-        //Vector3 Bpos = thisCard.transform.localPosition;
-        Ypos.x = Apos.x;
-        GameManager.Instance.Yajirusi.transform.position = Ypos;
-        float distance = (Apos - Jpos).magnitude;
-        Debug.Log(distance);
+        if (GameManager.Instance.isPlayerTurn)
+        {
+
+            Vector3 Apos = thisCard.transform.position;
+            Vector3 Jpos = GameObject.FindGameObjectWithTag("Card10").transform.position;
+            Vector3 Ypos = GameManager.Instance.Yajirusi.transform.position;
+            //Vector3 Bpos = thisCard.transform.localPosition;
+            Ypos.x = Apos.x;
+            GameManager.Instance.Yajirusi.transform.position = Ypos;
+            distance = (Apos - Jpos).magnitude;
+            //Debug.Log("distanceは"+distance);
+            GameManager.Instance.MyCursor.transform.localRotation = Quaternion.Euler(distance, GameManager.Instance.MyCursor.transform.localRotation.y, GameManager.Instance.MyCursor.transform.localRotation.z);
+        }
+        else
+        {
+            distance = GameManager.Instance.EnemyCursor.transform.localRotation.x;
+
+        }
         //Y座標が100以下の時実行
         //if (Apos.y<100)
         //{
@@ -126,90 +137,97 @@ public class OnMouseS : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Debug.Log("9番目に近いカードです");
             }
             
-        //}
+        
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        
-        Vector3 Apos = thisCard.transform.position;
-        Vector3 Jpos = GameObject.FindGameObjectWithTag("Card10").transform.position;
-        float distance = (Apos - Jpos).magnitude;
-        if (distance < 1)
+        if (GameManager.Instance.isPlayerTurn)
         {
-            return;
+            Vector3 Apos = thisCard.transform.position;
+            Vector3 Jpos = GameObject.FindGameObjectWithTag("Card10").transform.position;
+            distance = (Apos - Jpos).magnitude;
+            GameManager.Instance.MyCursor.transform.localRotation = Quaternion.Euler(distance, GameManager.Instance.MyCursor.transform.localRotation.y, GameManager.Instance.MyCursor.transform.localRotation.z);
         }
-        else if (distance >= 1 && distance < 2)
+        else
         {
-            GameManager.Instance.EmotionPlus();
-            GameManager.Instance.QEmotionPlus();
+            distance = GameManager.Instance.EnemyCursor.transform.localRotation.x;
         }
-        else if (distance >= 2 && distance < 3)
-        {
-            for (int i = 0; i < 2; i++)
+            if (distance < 1)
+            {
+                return;
+            }
+            else if (distance >= 1 && distance < 2)
             {
                 GameManager.Instance.EmotionPlus();
                 GameManager.Instance.QEmotionPlus();
             }
-        }
-        else if (distance >= 3 && distance < 4)
-        {
-            for (int i = 0; i < 3; i++)
+            else if (distance >= 2 && distance < 3)
             {
-                GameManager.Instance.EmotionPlus();
-                GameManager.Instance.QEmotionPlus();
+                for (int i = 0; i < 2; i++)
+                {
+                    GameManager.Instance.EmotionPlus();
+                    GameManager.Instance.QEmotionPlus();
+                }
             }
-        }
-        else if (distance >= 4 && distance < 5)
-        {
-            for (int i = 0; i < 4; i++)
+            else if (distance >= 3 && distance < 4)
             {
-                GameManager.Instance.EmotionPlus();
-                GameManager.Instance.QEmotionPlus();
+                for (int i = 0; i < 3; i++)
+                {
+                    GameManager.Instance.EmotionPlus();
+                    GameManager.Instance.QEmotionPlus();
+                }
             }
-        }
-        else if (distance >= 5 && distance < 6)
-        {
-            for (int i = 0; i < 5; i++)
+            else if (distance >= 4 && distance < 5)
             {
-                GameManager.Instance.EmotionPlus();
-                GameManager.Instance.QEmotionPlus();
+                for (int i = 0; i < 4; i++)
+                {
+                    GameManager.Instance.EmotionPlus();
+                    GameManager.Instance.QEmotionPlus();
+                }
             }
-        }
-        else if (distance >= 6 && distance < 7)
-        {
-            for (int i = 0; i < 6; i++)
+            else if (distance >= 5 && distance < 6)
             {
-                GameManager.Instance.EmotionPlus();
-                GameManager.Instance.QEmotionPlus();
+                for (int i = 0; i < 5; i++)
+                {
+                    GameManager.Instance.EmotionPlus();
+                    GameManager.Instance.QEmotionPlus();
+                }
             }
-        }
-        else if (distance >= 7 && distance < 8)
-        {
-            for (int i = 0; i < 7; i++)
+            else if (distance >= 6 && distance < 7)
             {
-                GameManager.Instance.EmotionPlus();
-                GameManager.Instance.QEmotionPlus();
+                for (int i = 0; i < 6; i++)
+                {
+                    GameManager.Instance.EmotionPlus();
+                    GameManager.Instance.QEmotionPlus();
+                }
             }
-        }
-        else if (distance >= 9 && distance < 10)
-        {
-            for (int i = 0; i < 8; i++)
+            else if (distance >= 7 && distance < 8)
             {
-                GameManager.Instance.EmotionPlus();
-                GameManager.Instance.QEmotionPlus();
+                for (int i = 0; i < 7; i++)
+                {
+                    GameManager.Instance.EmotionPlus();
+                    GameManager.Instance.QEmotionPlus();
+                }
             }
-        }
-        else if (distance >= 10 && distance < 11)
-        {
-            for (int i = 0; i < 9; i++)
+            else if (distance >= 9 && distance < 10)
             {
-                GameManager.Instance.EmotionPlus();
-                GameManager.Instance.QEmotionPlus();
+                for (int i = 0; i < 8; i++)
+                {
+                    GameManager.Instance.EmotionPlus();
+                    GameManager.Instance.QEmotionPlus();
+                }
             }
-        }
-        
-        Debug.Log("出たよ");
+            else if (distance >= 10 && distance < 11)
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    GameManager.Instance.EmotionPlus();
+                    GameManager.Instance.QEmotionPlus();
+                }
+            }
 
+            Debug.Log("出たよ");
+        
     }
     
 }

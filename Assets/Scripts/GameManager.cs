@@ -162,6 +162,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public TestScene NetManager;
     public int MyNumber; //自分が何番目のプレイヤーかどうか
     public GameObject MyAvator;
+    public GameObject MyCursor;
+    public GameObject EnemyCursor;
     private AvatarController avatarController;
     public Text console;
     public int jokernum;
@@ -434,11 +436,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 {
                     PlayerDeck.transform.position = new Vector3(350, 1600, 0);
                     EnemyDeck.transform.position = new Vector3(17.5f, 12, 0);
+
+                    MyCursor.transform.localPosition = Yajirusi.gameObject.transform.localPosition;
                 }
                 else
                 {
                     PlayerDeck.transform.position = new Vector3(17.5f, 12, 0);
                     EnemyDeck.transform.position = new Vector3(350, 1600, 0);
+
+                    Yajirusi.gameObject.transform.localPosition = EnemyCursor.gameObject.transform.localPosition;
                 }
 
                 if (MyNumber == 1) //プレイヤー１モナリザ
@@ -508,9 +514,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         bgm.clip = play;
         bgm.Play();
+
         // 初期手札を配る
         if (MyNumber == 1) //プレイヤー１での処理を基準にジョーカーの場所を決める
         {
+            MyCursor = GameObject.Find("1P");
+            EnemyCursor = GameObject.Find("2P");
+
             Shuffle();
             decknum = Random.Range(1, 3);
             switch (decknum)
@@ -540,6 +550,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             Debug.Log("わたしは２");
             Debug.Log("ゲームを開始します");
+            MyCursor = GameObject.Find("2P");
+            EnemyCursor = GameObject.Find("1P");
+
             Shuffle();
             StartButtun.SetActive(false);
          
