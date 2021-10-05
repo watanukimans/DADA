@@ -1,16 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Security.Permissions;
-using System.Threading;
-using UnityEditor;
 using UnityEngine;
 
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-public class ClickSad : MonoBehaviour, IPointerClickHandler
+public class ClickSad : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void OnPointerClick(PointerEventData eventData)
+    public void SadClick()
     {
         Debug.Log("ノースマイルください");
         if (GameManager.Instance.point > 0)
