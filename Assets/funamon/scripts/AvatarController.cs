@@ -154,8 +154,8 @@ public class AvatarController :  MonoBehaviourPunCallbacks, IPunObservable
                 
             }
 
-            //if (manager.isPlayerTurn) //攻撃側
-            //{
+            if (manager.isPlayerTurn) //攻撃側
+            {
                 if (manager.clicked) //もしカードが選択されたら
                 {
                     stream.SendNext(select);
@@ -164,7 +164,7 @@ public class AvatarController :  MonoBehaviourPunCallbacks, IPunObservable
                 }
 
                 
-            //}
+            }
         }
         else
         {

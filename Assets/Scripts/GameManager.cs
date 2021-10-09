@@ -174,7 +174,22 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private AudioSource bgm;
     public AudioClip title;
-    public AudioClip play; 
+    public AudioClip play;
+
+    public AudioSource se;
+    public AudioClip drawcard;
+    public AudioClip discard;
+    public AudioClip move;
+    public AudioClip jokeredse;
+    public AudioClip jokerse;
+
+    public AudioSource se2;
+    public AudioClip alarm;
+    public AudioClip turnclip;
+    public AudioClip overse;
+
+    public bool egao;
+    public bool kanashi;
 
     /*
     public bool drowed;
@@ -185,6 +200,48 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     */
 
     //public bool P2go;
+
+    public void drawcardSE()
+    {
+        se.clip = drawcard;
+        se.Play();
+    }
+    public void discardcardSE()
+    {
+        se.clip = discard;
+        se.Play();
+    }
+    public void jokeredSE()
+    {
+        se.clip = jokeredse;
+        se.Play();
+    }
+    public void jokerSE()
+    {
+        se.clip = jokerse;
+        se.Play();
+    }
+    public void moveSE()
+    {
+        se.clip = move;
+        se.Play();
+    }
+    public void alarmSE()
+    {
+        se2.clip = alarm;
+        se2.Play();
+    }
+    public void turnSE()
+    {
+        se2.clip = turnclip;
+        se2.Play();
+    }
+    public void overSE()
+    {
+        se2.clip = overse;
+        se2.Play();
+    }
+
 
     void Start()
     {
@@ -197,6 +254,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         jokernum = 100;
         clicked = false;
         selectedcard = 0;
+
+        egao = false;
+        kanashi = false;
         //
         kutisita = GameObject.Find("MonarizaIndivi/Kutisita");
         kutisitaMeshRenderer = kutisita.GetComponent<SkinnedMeshRenderer>();
@@ -293,9 +353,22 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 {
                     countDown -= Time.deltaTime;
                     UIobj.fillAmount -= 1.0f / countTime * Time.deltaTime;
+                    if (countDown < 6)
+                    {
+                        alarmSE();
+                    }
+
                 }
                 else if (countDown < 0)
                 {
+                    overSE();
+                    //ここで終わるぞ
+                    if (dCard == 9)
+                    {
+                        Debug.Log("おわった");
+                        Invoke("ResultMethod", 1.0f);
+                        finishflg = true;
+                    }
                     clicked = false;
                     GameObject[] Card10 = GameObject.FindGameObjectsWithTag("Card10");
                     foreach (GameObject card10 in Card10)
@@ -438,6 +511,36 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     EnemyDeck.transform.position = new Vector3(17.5f, 12, 0);
 
                     MyCursor.transform.localPosition = Yajirusi.gameObject.transform.localPosition;
+
+                 
+                    if(EnemyCursor.transform.eulerAngles.y == 1) //１になったら笑う実行
+                    {
+                        
+                        if (egao == false)
+                        {
+                            //Debug.Log("相手が笑った");
+                            SmileClick();
+                            egao = true;
+                            MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 1, MyCursor.transform.localRotation.z);
+                        }
+                        
+                    }
+                    else if(EnemyCursor.transform.eulerAngles.y ==2) //２になったら悲しむ実行
+                    {
+                        if (kanashi == false)
+                        {
+                            SadClick();
+                            kanashi = true;
+                            MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 2, MyCursor.transform.localRotation.z);
+                        }
+                        
+                    }
+                    else
+                    {
+                        egao = false;
+                        kanashi = false;
+                        MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 0, MyCursor.transform.localRotation.z);
+                    }
                 }
                 else
                 {
@@ -445,6 +548,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     EnemyDeck.transform.position = new Vector3(350, 1600, 0);
 
                     Yajirusi.gameObject.transform.localPosition = EnemyCursor.gameObject.transform.localPosition;
+
+                    if(EnemyCursor.transform.eulerAngles.y == 1 || EnemyCursor.transform.eulerAngles.y == 2) //相手が変わったら
+                    {
+                        MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 0, MyCursor.transform.localRotation.z);
+                    }
                 }
 
                 if (MyNumber == 1) //プレイヤー１モナリザ
@@ -508,6 +616,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     }
                 }
             }
+        }
+        else //ゲーム終了したら
+        {
+            
         }
     }
     void StartGame()
@@ -670,6 +782,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     
     void TurnCalc() // ターンを管理する
     {
+        turnSE();
         if (isPlayerTurn)
         {
             PlayerTurn();
@@ -704,7 +817,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         MaxGauge();
         SetHand();
         turn++;
-        Debug.Log(turn);
+        //Debug.Log(turn);
         countDown = countDownReset;
         Point.fillAmount = 1;
         Point2.fillAmount = 1;
@@ -721,7 +834,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         MaxGauge();
         SetHand();
         turn++;
-        Debug.Log(turn);
+        //Debug.Log(turn);
         countDown = countDownReset;
         Point.fillAmount = 1;
         Point2.fillAmount = 1;
@@ -789,7 +902,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     //ターンごとのデッキリストを定義
     {
         DeleteCard();
-        Debug.Log(dCard);
+        //Debug.Log(dCard);
         for (int n = 1; n < 11; n++)
         {
             deck.Remove(n);
@@ -903,6 +1016,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             deck2.Remove(t6);
             deck2.Remove(t7);
             deck2.Remove(t8);
+            
         }
         if (dCard == 9)
         {
@@ -924,10 +1038,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             deck2.Remove(t7);
             deck2.Remove(t8);
             deck2.Remove(t9);
-            //勝利条件を満たした
-            Debug.Log("おわった");
-            Invoke("Result", 1.0f);
-            finishflg = true;
+            
         }
     }
 
@@ -1236,6 +1347,66 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         yield return null;
     }
     */
+
+    public void SmileClick() //笑うボタン移植
+    {
+
+        if (!isPlayerTurn) //防御
+        {
+            Debug.Log("よーし笑うぞ！");
+            MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 1, MyCursor.transform.localRotation.z); //１で笑う
+        }
+        
+
+        Debug.Log("スマイルください");
+        if (point > 0)
+        {
+            point -= 1;
+            Point.fillAmount -= wariai;
+            Point2.fillAmount -= wariai;
+            if (w > 5)
+            {
+                w -= 5;
+            }
+            else
+            {
+                w2 += 5;
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void SadClick() //悲しむボタン移植
+    {
+        if (!isPlayerTurn) //防御
+        {
+            MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 2, MyCursor.transform.localRotation.z);  //２で悲しむ
+        }
+        
+
+        Debug.Log("ノースマイルください");
+        if (point > 0)
+        {
+            point -= 1;
+            Point.fillAmount -= wariai;
+            Point2.fillAmount -= wariai;
+            if (w2 > 0)
+            {
+                w2 -= 5;
+            }
+            else if (w <= 100)
+            {
+                w += 5;
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
 
     public void Quit()
     {

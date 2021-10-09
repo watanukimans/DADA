@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ClickSmile : MonoBehaviour
 {
+
     // Start is called before the first frame update
     public void SmileClick()
     {

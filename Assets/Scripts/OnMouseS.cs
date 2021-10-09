@@ -10,17 +10,14 @@ public class OnMouseS : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public GameObject thisCard;
     float distance;
 
-    public void SendEmotion()
-    {
-        if(GameManager.Instance.MyNumber == 1) //自身がプレイヤー１モナリザ、敵がプレイヤー２ムンク
-        {
-
-        }
-    }
+    
     
     // Start is called before the first frame update
     public void OnPointerEnter(PointerEventData eventData)
     {
+
+        GameManager.Instance.moveSE();
+
         if (GameManager.Instance.isPlayerTurn)
         {
 

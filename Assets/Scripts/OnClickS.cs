@@ -56,6 +56,7 @@ public class OnClickS : MonoBehaviour, IPointerClickHandler
 
     public void SelectClick()
     {
+        GameManager.Instance.drawcardSE();
         reset=GameManager.Instance.countDownReset; 
         //Debug.Log(GameManager.Instance.selectedcard + "が選ばれているよ");
         /*
@@ -232,6 +233,7 @@ public class OnClickS : MonoBehaviour, IPointerClickHandler
         }
         if (this.gameObject.tag == "Card" + GameManager.Instance.selectedcard && this.gameObject.tag == "Card10")
         {
+            GameManager.Instance.jokeredSE();
             Transform myTransform = this.transform;
             Vector3 pos = myTransform.position;
             pos.y += 100f;
@@ -254,6 +256,7 @@ public class OnClickS : MonoBehaviour, IPointerClickHandler
     {
         if (GameManager.Instance.isPlayerTurn)
         {
+            GameManager.Instance.drawcardSE();
             //Debug.Log(eventData);
             reset = GameManager.Instance.countDownReset;
             //Y座標を移動
@@ -383,6 +386,7 @@ public class OnClickS : MonoBehaviour, IPointerClickHandler
             }
             if (this.gameObject.CompareTag("Card10"))
             {
+                GameManager.Instance.jokerSE();
                 Invoke("GMChangeTurn", 1);
                 cardImage.sprite = joker;
                 GameObject[] Card10 = GameObject.FindGameObjectsWithTag("Card10");
@@ -393,6 +397,7 @@ public class OnClickS : MonoBehaviour, IPointerClickHandler
                 //GMChangeTurn();
                 selectCard = 10;
             }
+
 
 
             //ネット関連
