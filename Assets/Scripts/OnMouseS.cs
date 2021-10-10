@@ -33,7 +33,7 @@ public class OnMouseS : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         else
         {
-            distance = GameManager.Instance.EnemyCursor.transform.localRotation.x;
+            distance = GameManager.Instance.EnemyCursor.transform.eulerAngles.x;
 
         }
         //Y座標が100以下の時実行
@@ -147,7 +147,7 @@ public class OnMouseS : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         else
         {
-            distance = GameManager.Instance.EnemyCursor.transform.localRotation.x;
+            distance = GameManager.Instance.EnemyCursor.transform.eulerAngles.x;
         }
             if (distance < 1)
             {
