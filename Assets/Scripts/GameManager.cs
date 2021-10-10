@@ -325,6 +325,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     void Update()
     {
+        Debug.Log(MyNumber + "番です");
         //Debug.Log(w);
         if (!finishflg)
         {
@@ -558,6 +559,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
                 if (MyNumber == 1) //プレイヤー１モナリザ
                 {
+                    Debug.Log("あなたはモナリザです");
                     if (isPlayerTurn) //攻撃
                     {
                         ChangePlaceToPlayerTurnA();
@@ -569,6 +571,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 }
                 else if (MyNumber == 2) //プレイヤー２ムンク
                 {
+                    
                     if (isPlayerTurn) //攻撃
                     {
                         ChangePlaceToPlayerTurnB();
