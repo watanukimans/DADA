@@ -325,6 +325,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     void Update()
     {
+        Debug.Log(MyNumber + "番です");
         //Debug.Log(w);
         if (!finishflg)
         {
@@ -522,7 +523,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                             //Debug.Log("相手が笑った");
                             SmileClick();
                             egao = true;
-                            MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 1, MyCursor.transform.localRotation.z);
+                            MyCursor.transform.eulerAngles = new Vector3(MyCursor.transform.eulerAngles.x, 1, MyCursor.transform.eulerAngles.z);
                         }
                         
                     }
@@ -532,7 +533,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                         {
                             SadClick();
                             kanashi = true;
-                            MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 2, MyCursor.transform.localRotation.z);
+                            MyCursor.transform.eulerAngles = new Vector3(MyCursor.transform.eulerAngles.x, 2, MyCursor.transform.eulerAngles.z);
                         }
                         
                     }
@@ -540,7 +541,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     {
                         egao = false;
                         kanashi = false;
-                        MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 0, MyCursor.transform.localRotation.z);
+                        MyCursor.transform.eulerAngles = new Vector3(MyCursor.transform.eulerAngles.x, 0, MyCursor.transform.eulerAngles.z);
                     }
                 }
                 else
@@ -552,12 +553,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
                     if(EnemyCursor.transform.eulerAngles.y == 1 || EnemyCursor.transform.eulerAngles.y == 2) //相手が変わったら
                     {
-                        MyCursor.transform.localRotation = Quaternion.Euler(MyCursor.transform.localRotation.x, 0, MyCursor.transform.localRotation.z);
+                        MyCursor.transform.eulerAngles = new Vector3(MyCursor.transform.eulerAngles.x, 0, MyCursor.transform.eulerAngles.z);
                     }
                 }
 
                 if (MyNumber == 1) //プレイヤー１モナリザ
                 {
+                    Debug.Log("あなたはモナリザです");
                     if (isPlayerTurn) //攻撃
                     {
                         ChangePlaceToPlayerTurnA();
@@ -569,6 +571,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 }
                 else if (MyNumber == 2) //プレイヤー２ムンク
                 {
+                    
                     if (isPlayerTurn) //攻撃
                     {
                         ChangePlaceToPlayerTurnB();
