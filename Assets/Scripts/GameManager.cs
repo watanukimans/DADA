@@ -139,6 +139,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     //ポイントゲージ関連
     public float point;
+    public float pointR;
     public float wariai;
     
 
@@ -821,6 +822,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         countDown = countDownReset;
         Point.fillAmount = 1;
         Point2.fillAmount = 1;
+        point = pointR;
         Debug.Log("Playerのターン");
     }
 
@@ -838,6 +840,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         countDown = countDownReset;
         Point.fillAmount = 1;
         Point2.fillAmount = 1;
+        point = pointR;
         Debug.Log("Enemyのターン");
     }
     void Shuffle()

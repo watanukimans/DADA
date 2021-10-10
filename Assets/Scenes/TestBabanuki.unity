@@ -6689,6 +6689,7 @@ MonoBehaviour:
   we: 0
   cardnum: {fileID: 1870716582}
   point: 10
+  pointR: 10
   wariai: 0
   StartButtun: {fileID: 1703997833}
   LoadImage: {fileID: 340390465}
