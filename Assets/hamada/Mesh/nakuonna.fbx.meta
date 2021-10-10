@@ -8,7 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert2
-    second: {fileID: 2100000, guid: 6a9f1499d28767e40bb5cbed6f98a588, type: 2}
+    second: {fileID: 2100000, guid: 458d66c94cf37314b8157f4c408207f7, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: nakuonna
+    second: {fileID: 2800000, guid: f5a5e86df2a5961439e9dccbb2933c45, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
